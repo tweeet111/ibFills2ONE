@@ -114,6 +114,7 @@ def import_fills():
 	df = pd.concat([df_log, fills_df])
 	df = df.drop_duplicates(subset=['execId'])
 	df['Expiration'] = df['Expiration'].astype(str)
+	df['Expiration'] = pd.to_datetime(df['Expiration'], errors='coerce', format="%Y%m%d")
 	df = df.sort_values(by=['TradeDate', 'TradeTime'], ascending=False)
 	df.to_csv("trade_log.csv", index=False)
 

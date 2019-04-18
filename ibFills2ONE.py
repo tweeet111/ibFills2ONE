@@ -107,14 +107,14 @@ def import_fills():
 # Make Quantity values negative for Sells and positive for Buys ---- easier to calculate positions from tradelog.csv
 	
 	fills_df['Quantity'] = np.where(fills_df['Buy/Sell'] =='SLD', fills_df['Quantity']*(-1), fills_df['Quantity'])
+	fills_df['Expiration'] = pd.to_datetime(fills_df['Expiration'], errors='coerce', format="%Y-%m-%d")
 
 ############################################################################################################
 
 	df_log = pd.read_csv("trade_log.csv")
+	df_log['Expiration'] = pd.to_datetime(df_log['Expiration'], errors='coerce', format="%Y-%m-%d")
 	df = pd.concat([df_log, fills_df])
 	df = df.drop_duplicates(subset=['execId'])
-	df['Expiration'] = df['Expiration'].astype(str)
-	df['Expiration'] = pd.to_datetime(df['Expiration'], errors='coerce', format="%Y%m%d")
 	df = df.sort_values(by=['TradeDate', 'TradeTime'], ascending=False)
 	df.to_csv("trade_log.csv", index=False)
 

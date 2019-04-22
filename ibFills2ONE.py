@@ -48,8 +48,8 @@ def import_fills():
     t_str = dt.today().strftime('%Y%m%d')
 
     # creating dataframe from fills list
-    cols = ["TradeDate", "TradeTimeUTC", "TradeTimeCDT", "TradeTime", "Buy/Sell", "conID", "AssetClass", "Multiplier",
-            "Symbol" , "Quantity", "TradePrice", "IBCommission", "Currency", "UnderlyingSymbol", "Right",
+    cols = ["TradeDate", "TradeTimeUTC", "TradeTimeCDT", "TradeTime", "Buy/Sell", "conId", "AssetClass", "Multiplier",
+            "Symbol" , "Quantity", "TradePrice", "IBCommission", "Currency", "UnderlyingSymbol", "right",
             "permId", "execId", "orderRef", "Expiration", "Description"]
     fills_df = pd.DataFrame([[dt.strftime(fill.execution.time.astimezone(to_local), '%Y%m%d'),
                               dt.strftime(fill.execution.time, '%H%M%S'),
